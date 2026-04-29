@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreshBasket — Online Groceries</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🛒 Fresh<span>Basket</span></div>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">Offers</a>
+    <a href="#">About</a>
+  </div>
+  <div class="nav-right">
+    <div class="search-bar">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search groceries…" id="searchInput" oninput="filterProducts()">
+    </div>
+    <button class="cart-btn" onclick="toggleCart()">
+      🛒 Cart
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-tag">🌿 Farm Fresh Delivered</span>
+    <h1>Fresh Groceries<br>to Your <em>Doorstep</em></h1>
+    <p>Shop from hundreds of fresh, organic, and everyday essentials. Delivered fast, straight from local farms and trusted suppliers.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+      <button class="btn-outline">View Offers</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-circle">🥦</div>
+    <div class="hero-badge b1">🚚 Free delivery over $40</div>
+    <div class="hero-badge b2">✅ 100% Fresh Guarantee</div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Shop by Category</h2>
+    <a class="section-link" href="#">View all →</a>
+  </div>
+  <div class="categories" id="categories">
+    <div class="category-card active" onclick="filterCategory('all', this)">
+      <span class="cat-icon">🛒</span>
+      <div class="cat-name">All</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('fruits', this)">
+      <span class="cat-icon">🍎</span>
+      <div class="cat-name">Fruits</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('vegetables', this)">
+      <span class="cat-icon">🥦</span>
+      <div class="cat-name">Vegetables</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('dairy', this)">
+      <span class="cat-icon">🥛</span>
+      <div class="cat-name">Dairy</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('bakery', this)">
+      <span class="cat-icon">🍞</span>
+      <div class="cat-name">Bakery</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('meat', this)">
+      <span class="cat-icon">🥩</span>
+      <div class="cat-name">Meat</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('snacks', this)">
+      <span class="cat-icon">🍪</span>
+      <div class="cat-name">Snacks</div>
+    </div>
+    <div class="category-card" onclick="filterCategory('beverages', this)">
+      <span class="cat-icon">🧃</span>
+      <div class="cat-name">Drinks</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products" style="padding-top:0">
+  <div class="section-header">
+    <h2 class="section-title" id="productsTitle">Featured Products</h2>
+    <span id="productCount" style="color:var(--muted);font-size:0.88rem;"></span>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- PROMO BANNER -->
+<div class="promo-banner">
+  <div class="promo-text">
+    <h2>Get 20% Off Your First Order!</h2>
+    <p>Use code <strong>FRESH20</strong> at checkout. Valid on orders over $30. Fresh produce, everyday essentials — delivered today.</p>
+  </div>
+  <span class="promo-emoji">🎉</span>
+  <button class="promo-cta">Claim Offer</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">Fresh<span>Basket</span></div>
+      <p class="footer-desc">Your trusted online grocery store. Fresh produce delivered fast, every day of the week.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">All Products</a>
+      <a href="#">Fresh Deals</a>
+      <a href="#">Organic</a>
+      <a href="#">New Arrivals</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Help Center</a>
+      <a href="#">Track Order</a>
+      <a href="#">Returns</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 FreshBasket. All rights reserved. Made with 🌿</div>
+</footer>
+
+<!-- CART OVERLAY & SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <div class="cart-title">🛒 Your Cart</div>
+    <button class="close-btn" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-summary">
+      <div class="cart-row"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+      <div class="cart-row"><span>Delivery</span><span id="cartDelivery">$4.99</span></div>
+      <div class="cart-row total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
